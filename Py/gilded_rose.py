@@ -1,3 +1,7 @@
+CONJURED = "Conjured Mana Cake"
+BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert"
+AGED_BRIE = "Aged Brie"
+SULFURAS = "Sulfuras, Hand of Ragnaros"
 DEFAULT = "default"
 
 
@@ -7,30 +11,30 @@ class GildedRose(object):
         self.items = items
         self.sell_in_change = {
             DEFAULT: -1,
-            "Sulfuras, Hand of Ragnaros": 0
+            SULFURAS: 0
         }
         self.quality_change = {
             DEFAULT:
                 lambda item: -1,
-            "Sulfuras, Hand of Ragnaros":
+            SULFURAS:
                 lambda item: 0,
-            "Aged Brie":
+            AGED_BRIE:
                 lambda item: 1,
-            "Backstage passes to a TAFKAL80ETC concert":
+            BACKSTAGE_PASSES:
                 lambda item:
                 ([value for key, value in {-1: -item.quality, 4: 3, 9: 2}.items() if item.sell_in <= key] or [1])[0]
         }
         self.change_multiplier = {
             DEFAULT:
                 lambda item: (1 if item.sell_in >= 0 else 2),
-            "Conjured Mana Cake":
+            CONJURED:
                 lambda item: (2 if item.sell_in >= 0 else 4)
         }
 
         self.limit_quality = {
             DEFAULT:
                 lambda item: min(max(item.quality, 0), 50),
-            "Sulfuras, Hand of Ragnaros":
+            SULFURAS:
                 lambda item: item.quality
         }
 

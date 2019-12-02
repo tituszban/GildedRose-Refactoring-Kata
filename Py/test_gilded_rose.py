@@ -60,7 +60,7 @@ class BasicRulesTestCase(unittest.TestCase):
         self.assertEqual(getattr(self.item, SELL_IN), self.item_start_properties[SELL_IN] - 1, self.param[NAME])
 
     def test_quality_reduced(self):
-        exceptions = [AGED_BRIE, SULFURAS_HAND_OF_RAGNAROS, BACKSTAGE_PASS_TAFKAL]
+        exceptions = [AGED_BRIE, SULFURAS_HAND_OF_RAGNAROS, BACKSTAGE_PASS_TAFKAL, CONJURED_MANNA_CAKE]
         if self.param[NAME] in exceptions:
             return
         self.assertEqual(getattr(self.item, QUALITY), self.item_start_properties[QUALITY] - 1, self.param[NAME])
@@ -249,7 +249,9 @@ class ConjuredTestCases(unittest.TestCase):
     def test_all_increased_double(self):
         assert len(self.items) == len(self.normal_items)
         for i in range(len(self.items)):
-            self.assertEqual(getattr(self.items[i], QUALITY), getattr(self.normal_items[i], QUALITY) * 2)
+            change = getattr(self.items[i], QUALITY) - self.properties_for_items[i][QUALITY]
+            normal_change = getattr(self.normal_items[i], QUALITY) - self.properties_for_normal_items[i][QUALITY]
+            self.assertEqual(change, normal_change * 2, i)
 
 
 ITEMS = (

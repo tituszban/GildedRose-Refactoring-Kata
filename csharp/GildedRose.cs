@@ -24,19 +24,21 @@ namespace csharp
             }
         }
 
-        private static int GetQualityChangeBeforeSellInUpdate(Item item)
+        private static int GetBaseQualityChange(Item item)
         {
             switch (item.Name)
             {
                 case _agedBrie: return 1;
-                case _backstagePasses: return item.SellIn <= 5 ? 3 : (item.SellIn <= 10 ? 2 : 1);
+                case _backstagePasses: return item.SellIn < 5 ? 3 : (item.SellIn < 10 ? 2 : 1);
                 case _conjured: return -2;
                 default: return -1;
             }
         }
 
-        private static int UpdateQualityChangeAfterSellInUpdate(Item item, int qualityChange)
+        private static int GetQualityChange(Item item)
         {
+            var qualityChange = GetBaseQualityChange(item);
+
             if (item.SellIn >= 0) return qualityChange;
 
             if (item.Name == _backstagePasses) return -item.Quality;
@@ -48,14 +50,9 @@ namespace csharp
         {
             if (item.Name == _sulfuras) return;
 
-            var qualityChange = GetQualityChangeBeforeSellInUpdate(item);
-
-
             item.SellIn--;
 
-            qualityChange = UpdateQualityChangeAfterSellInUpdate(item, qualityChange);
-
-            ChangeItemQuality(item, qualityChange);
+            ChangeItemQuality(item, GetQualityChange(item));
         }
 
         public void UpdateQuality()

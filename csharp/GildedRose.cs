@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace csharp
 {
@@ -17,11 +18,7 @@ namespace csharp
 
         private static void ChangeItemQuality(Item item, int amount)
         {
-            var newQuality = item.Quality + amount;
-            if (newQuality >= 0 && newQuality <= 50)
-            {
-                item.Quality = newQuality;
-            }
+            item.Quality = Math.Min(Math.Max(item.Quality + amount, 0), 50);
         }
 
         private static int GetBaseQualityChange(Item item)

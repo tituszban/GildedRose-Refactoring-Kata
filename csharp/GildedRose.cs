@@ -16,14 +16,7 @@ namespace csharp
 
         private void UpdateItem(Item item)
         {
-            if (item.Name != _agedBrie && item.Name != _backstagePasses)
-            {
-                if (item.Quality > 0 && item.Name != _sulfuras)
-                {
-                    item.Quality--;
-                }
-            }
-            else
+            if (item.Name == _agedBrie || item.Name == _backstagePasses)
             {
                 if (item.Quality < 50)
                 {
@@ -43,6 +36,10 @@ namespace csharp
                     }
                 }
             }
+            else if (item.Quality > 0 && item.Name != _sulfuras)
+            {
+                item.Quality--;
+            }
 
             if (item.Name != _sulfuras)
             {
@@ -51,25 +48,22 @@ namespace csharp
 
             if (item.SellIn < 0)
             {
-                if (item.Name != _agedBrie)
-                {
-                    if (item.Name != _backstagePasses)
-                    {
-                        if (item.Quality > 0 && item.Name != _sulfuras)
-                        {
-                            item.Quality--;
-                        }
-                    }
-                    else
-                    {
-                        item.Quality = 0;
-                    }
-                }
-                else
+                if (item.Name == _agedBrie)
                 {
                     if (item.Quality < 50)
                     {
                         item.Quality++;
+                    }
+                }
+                else
+                {
+                    if (item.Name == _backstagePasses)
+                    {
+                        item.Quality = 0;
+                    }
+                    else if (item.Quality > 0 && item.Name != _sulfuras)
+                    {
+                        item.Quality--;
                     }
                 }
             }
@@ -77,7 +71,7 @@ namespace csharp
 
         public void UpdateQuality()
         {
-            foreach(var item in Items)
+            foreach (var item in Items)
             {
                 UpdateItem(item);
             }

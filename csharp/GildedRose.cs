@@ -23,10 +23,8 @@ namespace csharp
             }
         }
 
-        private static void UpdateItem(Item item)
+        private static int GetQualityChangeBeforeSellInUpdate(Item item)
         {
-            if (item.Name == _sulfuras) return;
-
             var qualityChangeBeforeSellInUpdate = -1;
             if (item.Name == _agedBrie || item.Name == _backstagePasses)
             {
@@ -46,10 +44,12 @@ namespace csharp
                     }
                 }
             }
-            ChangeItemQuality(item, qualityChangeBeforeSellInUpdate);
 
-            item.SellIn--;
+            return qualityChangeBeforeSellInUpdate;
+        }
 
+        private static int GetQualityChangeAfterSellInUpdate(Item item)
+        {
             var qualityChangeAfterSellInUpdate = 0;
 
             if (item.SellIn < 0)
@@ -70,7 +70,19 @@ namespace csharp
                     }
                 }
             }
-            ChangeItemQuality(item, qualityChangeAfterSellInUpdate);
+
+            return qualityChangeAfterSellInUpdate;
+        }
+
+        private static void UpdateItem(Item item)
+        {
+            if (item.Name == _sulfuras) return;
+
+            ChangeItemQuality(item, GetQualityChangeBeforeSellInUpdate(item));
+
+            item.SellIn--;
+
+            ChangeItemQuality(item, GetQualityChangeAfterSellInUpdate(item));
         }
 
         public void UpdateQuality()

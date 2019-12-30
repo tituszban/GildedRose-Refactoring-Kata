@@ -100,6 +100,16 @@ namespace csharp
             Assert.IsTrue(Items[0].Quality <= 50);
         }
 
+        [TestCase("Sulfuras, Hand of Ragnaros")]
+        public void SellInDoesntChange(string name)
+        {
+            var sellIn = 10;
+            IList<Item> Items = new List<Item> { new Item { Name = name, SellIn = sellIn, Quality = 10 } };
+            GildedRose app = new GildedRose(Items);
+            app.UpdateQuality();
+            Assert.AreEqual(sellIn, Items[0].SellIn);
+        }
+
         [TestCase("Sulfuras, Hand of Ragnaros", 5)]
         [TestCase("Sulfuras, Hand of Ragnaros", 0)]
         [TestCase("Sulfuras, Hand of Ragnaros", -5)]

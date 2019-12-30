@@ -17,13 +17,14 @@ namespace csharp
             {
                 var wrappedItem = ItemWrapperFactory.FromItem(item);
                 wrappedItem.UpdateItem();
+
                 if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
                 {
                     if (item.Quality > 0)
                     {
                         if (item.Name != "Sulfuras, Hand of Ragnaros")
                         {
-                            item.Quality = item.Quality - 1;
+                            
                         }
                     }
                 }
@@ -56,7 +57,7 @@ namespace csharp
 
                 if (item.Name != "Sulfuras, Hand of Ragnaros")
                 {
-                    item.SellIn = item.SellIn - 1;
+                    
                 }
 
                 if (item.SellIn < 0)

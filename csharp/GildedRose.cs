@@ -8,6 +8,7 @@ namespace csharp
         private static string _agedBrie = "Aged Brie";
         private static string _backstagePasses = "Backstage passes to a TAFKAL80ETC concert";
         private static string _sulfuras = "Sulfuras, Hand of Ragnaros";
+        private static string _conjured = "Conjured Mana Cake";
 
         public GildedRose(IList<Item> Items)
         {
@@ -36,6 +37,8 @@ namespace csharp
                 if (item.SellIn < 11) return 2;
             }
 
+            if (item.Name == _conjured) return -2;
+
             return -1;
 
         }
@@ -49,6 +52,8 @@ namespace csharp
             if (item.Name == _agedBrie) return 1;
 
             if (item.Name == _backstagePasses) return -item.Quality;
+
+            if (item.Name == _conjured) return -2;
 
             return -1;
         }

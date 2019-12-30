@@ -25,59 +25,47 @@ namespace csharp
 
         private static int GetQualityChangeBeforeSellInUpdate(Item item)
         {
-            var qualityChangeBeforeSellInUpdate = -1;
-            if (item.Name == _agedBrie || item.Name == _backstagePasses)
+            if (item.Name == _sulfuras) return 0;
+
+            if (item.Name != _agedBrie && item.Name != _backstagePasses) return -1;
+
+            if (item.Name == _backstagePasses)
             {
-                qualityChangeBeforeSellInUpdate = 1;
-
-
-                if (item.Name == _backstagePasses)
+                if (item.SellIn < 6)
                 {
-                    if (item.SellIn < 11)
-                    {
-                        qualityChangeBeforeSellInUpdate = 2;
-                    }
+                    return 3;
+                }
 
-                    if (item.SellIn < 6)
-                    {
-                        qualityChangeBeforeSellInUpdate = 3;
-                    }
+                if (item.SellIn < 11)
+                {
+                    return 2;
                 }
             }
 
-            return qualityChangeBeforeSellInUpdate;
+            return 1;
+
         }
 
         private static int GetQualityChangeAfterSellInUpdate(Item item)
         {
-            var qualityChangeAfterSellInUpdate = 0;
+            if (item.Name == _sulfuras) return 0;
+            if (item.SellIn >= 0) return 0;
 
-            if (item.SellIn < 0)
+            if (item.Name == _agedBrie)
             {
-                if (item.Name == _agedBrie)
-                {
-                    qualityChangeAfterSellInUpdate = 1;
-                }
-                else
-                {
-                    if (item.Name == _backstagePasses)
-                    {
-                        qualityChangeAfterSellInUpdate = -item.Quality;
-                    }
-                    else if (item.Name != _sulfuras)
-                    {
-                        qualityChangeAfterSellInUpdate = -1;
-                    }
-                }
+                return 1;
             }
 
-            return qualityChangeAfterSellInUpdate;
+            if (item.Name == _backstagePasses)
+            {
+                return -item.Quality;
+            }
+
+            return -1;
         }
 
         private static void UpdateItem(Item item)
         {
-            if (item.Name == _sulfuras) return;
-
             ChangeItemQuality(item, GetQualityChangeBeforeSellInUpdate(item));
 
             item.SellIn--;

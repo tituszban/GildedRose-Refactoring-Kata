@@ -33,31 +33,29 @@ namespace csharp
                 case _conjured: return -2;
                 default: return -1;
             }
-
         }
 
-        private static int GetQualityChangeAfterSellInUpdate(Item item)
+        private static int UpdateQualityChangeAfterSellInUpdate(Item item, int qualityChange)
         {
-            if (item.SellIn >= 0) return 0;
+            if (item.SellIn >= 0) return qualityChange;
 
-            switch (item.Name)
-            {
-                case _agedBrie: return 1;
-                case _backstagePasses: return -item.Quality;
-                case _conjured: return -2;
-                default: return -1;
-            }
+            if (item.Name == _backstagePasses) return -item.Quality;
+
+            return qualityChange * 2;
         }
 
         private static void UpdateItem(Item item)
         {
             if (item.Name == _sulfuras) return;
-            
-            ChangeItemQuality(item, GetQualityChangeBeforeSellInUpdate(item));
+
+            var qualityChange = GetQualityChangeBeforeSellInUpdate(item);
+
 
             item.SellIn--;
 
-            ChangeItemQuality(item, GetQualityChangeAfterSellInUpdate(item));
+            qualityChange = UpdateQualityChangeAfterSellInUpdate(item, qualityChange);
+
+            ChangeItemQuality(item, qualityChange);
         }
 
         public void UpdateQuality()

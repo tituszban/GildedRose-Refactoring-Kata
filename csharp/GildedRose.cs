@@ -14,19 +14,12 @@ namespace csharp
             this.Items = Items;
         }
 
-        private static void IncrementItemQuality(Item item)
+        private static void ChangeItemQuality(Item item, int amount)
         {
-            if (item.Quality < 50)
+            var newQuality = item.Quality + amount;
+            if (newQuality >= 0 && newQuality <= 50)
             {
-                item.Quality++;
-            }
-        }
-
-        private static void DecrementItemQuality(Item item)
-        {
-            if (item.Quality > 0)
-            {
-                item.Quality--;
+                item.Quality = newQuality;
             }
         }
 
@@ -36,24 +29,24 @@ namespace csharp
 
             if (item.Name == _agedBrie || item.Name == _backstagePasses)
             {
-                IncrementItemQuality(item);
+                ChangeItemQuality(item, 1);
 
                 if (item.Name == _backstagePasses)
                 {
                     if (item.SellIn < 11)
                     {
-                        IncrementItemQuality(item);
+                        ChangeItemQuality(item, 1);
                     }
 
                     if (item.SellIn < 6)
                     {
-                        IncrementItemQuality(item);
+                        ChangeItemQuality(item, 1);
                     }
                 }
             }
             else
             {
-                DecrementItemQuality(item);
+                ChangeItemQuality(item, -1);
             }
 
             item.SellIn--;
@@ -62,7 +55,7 @@ namespace csharp
             {
                 if (item.Name == _agedBrie)
                 {
-                    IncrementItemQuality(item);
+                    ChangeItemQuality(item, 1);
                 }
                 else
                 {
@@ -72,7 +65,7 @@ namespace csharp
                     }
                     else if (item.Name != _sulfuras)
                     {
-                        DecrementItemQuality(item);
+                        ChangeItemQuality(item, -1);
                     }
                 }
             }

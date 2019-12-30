@@ -27,48 +27,50 @@ namespace csharp
         {
             if (item.Name == _sulfuras) return;
 
+            var qualityChangeBeforeSellInUpdate = -1;
             if (item.Name == _agedBrie || item.Name == _backstagePasses)
             {
-                ChangeItemQuality(item, 1);
+                qualityChangeBeforeSellInUpdate = 1;
+
 
                 if (item.Name == _backstagePasses)
                 {
                     if (item.SellIn < 11)
                     {
-                        ChangeItemQuality(item, 1);
+                        qualityChangeBeforeSellInUpdate = 2;
                     }
 
                     if (item.SellIn < 6)
                     {
-                        ChangeItemQuality(item, 1);
+                        qualityChangeBeforeSellInUpdate = 3;
                     }
                 }
             }
-            else
-            {
-                ChangeItemQuality(item, -1);
-            }
+            ChangeItemQuality(item, qualityChangeBeforeSellInUpdate);
 
             item.SellIn--;
+
+            var qualityChangeAfterSellInUpdate = 0;
 
             if (item.SellIn < 0)
             {
                 if (item.Name == _agedBrie)
                 {
-                    ChangeItemQuality(item, 1);
+                    qualityChangeAfterSellInUpdate = 1;
                 }
                 else
                 {
                     if (item.Name == _backstagePasses)
                     {
-                        item.Quality = 0;
+                        qualityChangeAfterSellInUpdate = -item.Quality;
                     }
                     else if (item.Name != _sulfuras)
                     {
-                        ChangeItemQuality(item, -1);
+                        qualityChangeAfterSellInUpdate = -1;
                     }
                 }
             }
+            ChangeItemQuality(item, qualityChangeAfterSellInUpdate);
         }
 
         public void UpdateQuality()

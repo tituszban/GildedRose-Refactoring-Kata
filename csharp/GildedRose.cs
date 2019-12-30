@@ -6,10 +6,10 @@ namespace csharp
     public class GildedRose
     {
         IList<Item> Items;
-        private const string _agedBrie = "Aged Brie";
-        private const string _backstagePasses = "Backstage passes to a TAFKAL80ETC concert";
-        private const string _sulfuras = "Sulfuras, Hand of Ragnaros";
-        private const string _conjured = "Conjured Mana Cake";
+        private const string AgedBrie = "Aged Brie";
+        private const string BackstagePasses = "Backstage passes to a TAFKAL80ETC concert";
+        private const string Sulfuras = "Sulfuras, Hand of Ragnaros";
+        private const string Conjured = "Conjured Mana Cake";
 
         public GildedRose(IList<Item> Items)
         {
@@ -25,9 +25,9 @@ namespace csharp
         {
             switch (item.Name)
             {
-                case _agedBrie: return 1;
-                case _backstagePasses: return item.SellIn < 5 ? 3 : (item.SellIn < 10 ? 2 : 1);
-                case _conjured: return -2;
+                case AgedBrie: return 1;
+                case BackstagePasses: return item.SellIn < 5 ? 3 : (item.SellIn < 10 ? 2 : 1);
+                case Conjured: return -2;
                 default: return -1;
             }
         }
@@ -38,14 +38,14 @@ namespace csharp
 
             if (item.SellIn >= 0) return qualityChange;
 
-            if (item.Name == _backstagePasses) return -item.Quality;
+            if (item.Name == BackstagePasses) return -item.Quality;
 
             return qualityChange * 2;
         }
 
         private static void UpdateItem(Item item)
         {
-            if (item.Name == _sulfuras) return;
+            if (item.Name == Sulfuras) return;
 
             item.SellIn--;
 

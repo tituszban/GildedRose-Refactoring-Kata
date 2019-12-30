@@ -5,40 +5,53 @@ namespace csharp
     public class GildedRose
     {
         IList<Item> Items;
-        private string _agedBrie = "Aged Brie";
-        private string _backstagePasses = "Backstage passes to a TAFKAL80ETC concert";
-        private string _sulfuras = "Sulfuras, Hand of Ragnaros";
+        private static string _agedBrie = "Aged Brie";
+        private static string _backstagePasses = "Backstage passes to a TAFKAL80ETC concert";
+        private static string _sulfuras = "Sulfuras, Hand of Ragnaros";
 
         public GildedRose(IList<Item> Items)
         {
             this.Items = Items;
         }
 
-        private void UpdateItem(Item item)
+        private static void IncrementItemQuality(Item item)
+        {
+            if (item.Quality < 50)
+            {
+                item.Quality++;
+            }
+        }
+
+        private static void DecrementItemQuality(Item item)
+        {
+            if (item.Quality > 0)
+            {
+                item.Quality--;
+            }
+        }
+
+        private static void UpdateItem(Item item)
         {
             if (item.Name == _agedBrie || item.Name == _backstagePasses)
             {
-                if (item.Quality < 50)
+                IncrementItemQuality(item);
+
+                if (item.Name == _backstagePasses)
                 {
-                    item.Quality++;
-
-                    if (item.Name == _backstagePasses)
+                    if (item.SellIn < 11)
                     {
-                        if (item.SellIn < 11 && item.Quality < 50)
-                        {
-                            item.Quality++;
-                        }
+                        IncrementItemQuality(item);
+                    }
 
-                        if (item.SellIn < 6 && item.Quality < 50)
-                        {
-                            item.Quality++;
-                        }
+                    if (item.SellIn < 6)
+                    {
+                        IncrementItemQuality(item);
                     }
                 }
             }
-            else if (item.Quality > 0 && item.Name != _sulfuras)
+            else if (item.Name != _sulfuras)
             {
-                item.Quality--;
+                DecrementItemQuality(item);
             }
 
             if (item.Name != _sulfuras)
@@ -50,10 +63,7 @@ namespace csharp
             {
                 if (item.Name == _agedBrie)
                 {
-                    if (item.Quality < 50)
-                    {
-                        item.Quality++;
-                    }
+                    IncrementItemQuality(item);
                 }
                 else
                 {
@@ -61,9 +71,9 @@ namespace csharp
                     {
                         item.Quality = 0;
                     }
-                    else if (item.Quality > 0 && item.Name != _sulfuras)
+                    else if (item.Name != _sulfuras)
                     {
-                        item.Quality--;
+                        DecrementItemQuality(item);
                     }
                 }
             }

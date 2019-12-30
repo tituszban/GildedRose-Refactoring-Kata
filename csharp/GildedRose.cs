@@ -30,12 +30,7 @@ namespace csharp
 
             if (item.Name == _agedBrie) return 1;
 
-            if (item.Name == _backstagePasses)
-            {
-                if (item.SellIn < 6) return 3;
-                
-                if (item.SellIn < 11) return 2;
-            }
+            if (item.Name == _backstagePasses) return item.SellIn <= 5 ? 3 : (item.SellIn <= 10 ? 2 : 0);
 
             if (item.Name == _conjured) return -2;
 

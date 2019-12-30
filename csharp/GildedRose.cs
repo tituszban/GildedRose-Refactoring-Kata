@@ -29,7 +29,7 @@ namespace csharp
             switch (item.Name)
             {
                 case _agedBrie: return 1;
-                case _backstagePasses: return item.SellIn <= 5 ? 3 : (item.SellIn <= 10 ? 2 : 0);
+                case _backstagePasses: return item.SellIn <= 5 ? 3 : (item.SellIn <= 10 ? 2 : 1);
                 case _conjured: return -2;
                 default: return -1;
             }

@@ -79,7 +79,7 @@ namespace csharp
         public void QualityIncreases(string name)
         {
             var quality = 10;
-            IList<Item> Items = new List<Item> { new Item { Name = name, SellIn = 5, Quality = quality } };
+            IList<Item> Items = new List<Item> { new Item { Name = name, SellIn = 15, Quality = quality } };
             GildedRose app = new GildedRose(Items);
             app.UpdateQuality();
             Assert.IsTrue(Items[0].Quality > quality);

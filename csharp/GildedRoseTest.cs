@@ -35,7 +35,7 @@ namespace csharp
         [TestCase("Conjured Mana Cake")]
         public void QualityDecreases(string name)
         {
-            var quality = 10;
+            var quality = 1;
             IList<Item> Items = new List<Item> { new Item { Name = name, SellIn = 5, Quality = quality } };
             GildedRose app = new GildedRose(Items);
             app.UpdateQuality();

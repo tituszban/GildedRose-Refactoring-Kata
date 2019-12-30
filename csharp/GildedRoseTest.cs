@@ -122,6 +122,7 @@ namespace csharp
             Assert.AreEqual(quality, Items[0].Quality);
         }
 
+        [TestCase("Backstage passes to a TAFKAL80ETC concert", 1, 11)]
         [TestCase("Backstage passes to a TAFKAL80ETC concert", 2, 10)]
         [TestCase("Backstage passes to a TAFKAL80ETC concert", 2, 8)]
         [TestCase("Backstage passes to a TAFKAL80ETC concert", 3, 5)]

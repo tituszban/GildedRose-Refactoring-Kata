@@ -5,6 +5,10 @@ namespace csharp
     public class GildedRose
     {
         IList<Item> Items;
+        private string _agedBrie = "Aged Brie";
+        private string _backstagePasses = "Backstage passes to a TAFKAL80ETC concert";
+        private string _sulfuras = "Sulfuras, Hand of Ragnaros";
+
         public GildedRose(IList<Item> Items)
         {
             this.Items = Items;
@@ -14,9 +18,9 @@ namespace csharp
         {
             foreach(var item in Items)
             {
-                if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
+                if (item.Name != _agedBrie && item.Name != _backstagePasses)
                 {
-                    if (item.Quality > 0 && item.Name != "Sulfuras, Hand of Ragnaros")
+                    if (item.Quality > 0 && item.Name != _sulfuras)
                     {
                         item.Quality--;
                     }
@@ -27,7 +31,7 @@ namespace csharp
                     {
                         item.Quality++;
 
-                        if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+                        if (item.Name == _backstagePasses)
                         {
                             if (item.SellIn < 11 && item.Quality < 50)
                             {
@@ -42,18 +46,18 @@ namespace csharp
                     }
                 }
 
-                if (item.Name != "Sulfuras, Hand of Ragnaros")
+                if (item.Name != _sulfuras)
                 {
                     item.SellIn--;
                 }
 
                 if (item.SellIn < 0)
                 {
-                    if (item.Name != "Aged Brie")
+                    if (item.Name != _agedBrie)
                     {
-                        if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
+                        if (item.Name != _backstagePasses)
                         {
-                            if (item.Quality > 0 && item.Name != "Sulfuras, Hand of Ragnaros")
+                            if (item.Quality > 0 && item.Name != _sulfuras)
                             {
                                 item.Quality--;
                             }

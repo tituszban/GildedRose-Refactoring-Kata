@@ -27,39 +27,28 @@ namespace csharp
         {
             if (item.Name == _sulfuras) return 0;
 
-            if (item.Name != _agedBrie && item.Name != _backstagePasses) return -1;
+            if (item.Name == _agedBrie) return 1;
 
             if (item.Name == _backstagePasses)
             {
-                if (item.SellIn < 6)
-                {
-                    return 3;
-                }
-
-                if (item.SellIn < 11)
-                {
-                    return 2;
-                }
+                if (item.SellIn < 6) return 3;
+                
+                if (item.SellIn < 11) return 2;
             }
 
-            return 1;
+            return -1;
 
         }
 
         private static int GetQualityChangeAfterSellInUpdate(Item item)
         {
-            if (item.Name == _sulfuras) return 0;
             if (item.SellIn >= 0) return 0;
+            
+            if (item.Name == _sulfuras) return 0;
+            
+            if (item.Name == _agedBrie) return 1;
 
-            if (item.Name == _agedBrie)
-            {
-                return 1;
-            }
-
-            if (item.Name == _backstagePasses)
-            {
-                return -item.Quality;
-            }
+            if (item.Name == _backstagePasses) return -item.Quality;
 
             return -1;
         }

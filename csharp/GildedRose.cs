@@ -32,6 +32,8 @@ namespace csharp
 
         private static void UpdateItem(Item item)
         {
+            if (item.Name == _sulfuras) return;
+
             if (item.Name == _agedBrie || item.Name == _backstagePasses)
             {
                 IncrementItemQuality(item);
@@ -49,15 +51,12 @@ namespace csharp
                     }
                 }
             }
-            else if (item.Name != _sulfuras)
+            else
             {
                 DecrementItemQuality(item);
             }
 
-            if (item.Name != _sulfuras)
-            {
-                item.SellIn--;
-            }
+            item.SellIn--;
 
             if (item.SellIn < 0)
             {

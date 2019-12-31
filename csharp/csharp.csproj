@@ -63,6 +63,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApprovalTest.cs" />
+    <Compile Include="ItemWrappers\AgedBrieWrapper.cs" />
+    <Compile Include="ItemWrappers\BackstagePassWrapper.cs" />
     <Compile Include="ItemWrappers\ItemWrapperFactory.cs" />
     <Compile Include="ItemWrappers\ItemWrapper.cs" />
     <Compile Include="GildedRose.cs" />

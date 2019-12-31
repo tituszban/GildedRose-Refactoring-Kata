@@ -14,9 +14,7 @@ namespace csharp.ItemWrappers
 
         protected override void UpdateItemQuality()
         {
-            var quality_change = 1;
-            if (_item.SellIn < 0)
-                quality_change *= 2;
+            var quality_change = _item.SellIn >= 0 ? -BaseQualityChange : -BaseQualityChange * 2;
             SetQuality(_item.Quality + quality_change);
         }
     }

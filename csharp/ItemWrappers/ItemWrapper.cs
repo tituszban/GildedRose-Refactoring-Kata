@@ -9,6 +9,7 @@ namespace csharp.ItemWrappers
     internal class ItemWrapper
     {
         protected readonly Item _item;
+        protected const int BaseQualityChange = -1;
 
         public ItemWrapper(Item item)
         {
@@ -28,9 +29,8 @@ namespace csharp.ItemWrappers
 
         protected virtual void UpdateItemQuality()
         {
-            var quality_change = -1;
-            if (_item.SellIn < 0)
-                quality_change *= 2;
+            var quality_change = _item.SellIn >= 0 ? BaseQualityChange : BaseQualityChange * 2;
+
             SetQuality(_item.Quality + quality_change);
         }
         protected void SetQuality(int quality)

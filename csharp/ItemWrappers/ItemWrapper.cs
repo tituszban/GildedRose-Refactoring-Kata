@@ -33,6 +33,7 @@ namespace csharp.ItemWrappers
 
             SetQuality(_item.Quality + quality_change);
         }
+
         protected void SetQuality(int quality)
         {
             _item.Quality = Math.Min(Math.Max(quality, 0), 50);
